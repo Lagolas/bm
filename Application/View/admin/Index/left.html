@@ -1,0 +1,157 @@
+	<body>
+		<div class="navbar navbar-default" id="navbar">
+			<script type="text/javascript">
+				try{ace.settings.check('navbar' , 'fixed')}catch(e){}
+			</script>
+
+			<div class="navbar-container" id="navbar-container">
+				<div class="navbar-header pull-left">
+					<a href="#" class="navbar-brand"><small><i class="icon-leaf"></i>易报名CMS</small></a><!-- /.brand -->
+				</div><!-- /.navbar-header -->
+
+				<div class="navbar-header pull-right" role="navigation">
+					<ul class="nav ace-nav">
+						<li class="light-blue">
+							<a data-toggle="dropdown" href="#" class="dropdown-toggle">
+								<img class="nav-user-photo" src="{:SOURCE_PATH}assets/avatars/user.jpg" alt="Jason's Photo" />
+								<span class="user-info">
+									<small>欢迎使用,</small>
+									管理员
+								</span>
+
+								<i class="icon-caret-down"></i>
+							</a>
+
+							<ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
+								<li><a href="/" target='_blank'><i class="icon-cog"></i>前台首页</a></li>
+								<li><a href="#"><i class="icon-user"></i>系统设置</a></li>
+								<li class="divider"></li>
+								<li><a href="{:U('member/logout')}"><i class="icon-off"></i>安全退出</a></li>
+							</ul>
+						</li>
+					</ul><!-- /.ace-nav -->
+				</div><!-- /.navbar-header -->
+			</div><!-- /.container -->
+		</div>
+
+		<div class="main-container" id="main-container">
+			<script type="text/javascript">
+				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+			</script>
+
+			<div class="main-container-inner">
+				<a class="menu-toggler" id="menu-toggler" href="#"><span class="menu-text"></span></a>
+
+				<div class="sidebar" id="sidebar">
+					<script type="text/javascript">
+						try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
+					</script>
+
+					<div class="sidebar-shortcuts" id="sidebar-shortcuts">
+						<div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
+							<button class="btn btn-success"><i class="icon-signal"></i></button>
+							<button class="btn btn-info"><i class="icon-pencil"></i></button>
+							<button class="btn btn-warning"><i class="icon-group"></i></button>
+							<button class="btn btn-danger"><i class="icon-cogs"></i></button>
+						</div>
+
+						<div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
+							<span class="btn btn-success"></span>
+							<span class="btn btn-info"></span>
+							<span class="btn btn-warning"></span>
+							<span class="btn btn-danger"></span>
+						</div>
+					</div><!-- #sidebar-shortcuts -->
+
+					<ul class="nav nav-list">
+						<li class="<php>if(ACTION_NAME =='index' || ACTION_NAME ==''){</php>active<php>}</php>">
+                        	<a href="{:U('index')}">
+								<i class="icon-dashboard"></i>
+								<span class="menu-text"> 后台首页 </span>
+							</a>
+						</li>
+                        <li class="<php>if(in_array(ACTION_NAME,array('project','creatpro','editpro','bmlist'))){</php>active open<php>}</php>">
+							<a href="#" class="dropdown-toggle">
+								<i class="icon-tasks"></i>
+								<span class="menu-text"> 项目管理 </span>
+
+								<b class="arrow icon-angle-down"></b>
+							</a>
+
+							<ul class="submenu">
+								<li class="<php>if(in_array(ACTION_NAME,array('project','bmlist'))){</php>active<php>}</php>">
+									<a href="{:U('index/project')}">
+										<i class="icon-double-angle-right"></i>
+										项目列表
+									</a>
+								</li>
+
+								<li class="<php>if(in_array(ACTION_NAME,array('creatpro','editpro'))){</php>active<php>}</php>">
+									<a href="{:U('index/creatpro')}">
+										<i class="icon-double-angle-right"></i>
+										新建项目
+									</a>
+								</li>
+							</ul>
+						</li>
+                        
+                        <li class="<php>if(in_array(ACTION_NAME,array('model','creatmodel','fieldslist','editmodel'))){</php>active open<php>}</php>">
+							<a href="#" class="dropdown-toggle">
+								<i class="icon-desktop"></i>
+								<span class="menu-text"> 模型管理 </span>
+
+								<b class="arrow icon-angle-down"></b>
+							</a>
+
+							<ul class="submenu">
+								<li class="<php>if(in_array(ACTION_NAME,array('model','fieldslist'))){</php>active<php>}</php>">
+									<a href="{:U('index/model')}">
+										<i class="icon-double-angle-right"></i>
+										模型列表
+									</a>
+								</li>
+
+								<li class="<php>if(in_array(ACTION_NAME,array('creatmodel','editmodel'))){</php>active<php>}</php>">
+									<a href="{:U('index/creatmodel')}">
+										<i class="icon-double-angle-right"></i>
+										创建模型
+									</a>
+								</li>
+							</ul>
+						</li>
+                        
+                        <li class="<php>if(in_array(ACTION_NAME,array('manager','addmanager','editmanager'))){</php>active open<php>}</php>">
+							<a href="#" class="dropdown-toggle">
+								<i class="icon-legal"></i>
+								<span class="menu-text"> 管理员 </span>
+
+								<b class="arrow icon-angle-down"></b>
+							</a>
+
+							<ul class="submenu">
+								<li class="<php>if(in_array(ACTION_NAME,array('manager'))){</php>active<php>}</php>">
+									<a href="{:U('index/manager')}">
+										<i class="icon-double-angle-right"></i>
+										管理员列表
+									</a>
+								</li>
+
+								<li class="<php>if(in_array(ACTION_NAME,array('addmanager','editmanager'))){</php>active<php>}</php>">
+									<a href="{:U('index/addmanager')}">
+										<i class="icon-double-angle-right"></i>
+										添加管理员
+									</a>
+								</li>
+							</ul>
+						</li>
+						
+					</ul><!-- /.nav-list -->
+
+					<div class="sidebar-collapse" id="sidebar-collapse">
+						<i class="icon-double-angle-left" data-icon1="icon-double-angle-left" data-icon2="icon-double-angle-right"></i>
+					</div>
+
+					<script type="text/javascript">
+						try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
+					</script>
+				</div>

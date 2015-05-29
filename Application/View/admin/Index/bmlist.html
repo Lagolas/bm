@@ -1,0 +1,228 @@
+﻿<include file="header" />
+				<div class="main-content">
+					<div class="breadcrumbs" id="breadcrumbs">
+						<script type="text/javascript">
+							try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+						</script>
+
+						<ul class="breadcrumb">
+							<li>
+								<i class="icon-home home-icon"></i>
+								<a href="{:U('index')}">首页</a>
+							</li>
+                            <li>
+								<a href="#">项目管理</a>
+							</li>
+							<li class="active">报名列表</li>
+						</ul><!-- .breadcrumb -->
+					</div>
+
+					<div class="page-content">
+						<div class="row">
+                        	<div class="col-xs-12">
+                            	<div class="table-header">
+                                    {$proname}
+                                </div>
+								<div class="tabbable">
+                                    <ul class="nav nav-tabs" id="myTab">
+                                    <volist name='infolist' id='data'>
+                                        <li class="<php>if($i==1){</php>active<php>}</php>">
+                                            <a data-toggle="tab" href="#{$data['id']}">
+                                                <i class="green icon-user bigger-110"></i>
+                                                {$data['id']}
+                                            </a>
+                                        </li>
+                                    </volist>
+                                    </ul>
+                                    <div class="tab-content">
+                                    <volist name='infolist' id='info'>
+                                        <div id="{$info['id']}" class="tab-pane <php>if($i==1){</php>active<php>}</php>">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <form class="form-horizontal">
+                                                    <volist name='fields' id='data'>
+                                                    <php>if($data['type']==1){</php>
+                                                        <div class="form-group">
+                                                            <label class="col-sm-2 control-label">{$data['name']}</label>
+                                                            <div class="col-sm-10">
+                                                                <input type="text" readonly class="form-control" value="{$info[$data['cname']]}">
+                                                            </div>
+                                                        </div>
+                                                    <php>}else if($data['type']==2){</php>
+                                                        <div class="form-group">
+                                                            <label class="col-sm-2 control-label">{$data['name']}</label>
+                                                            <div class="col-sm-10">
+                                                                <textarea class="form-control" rows="5" readonly>{$info[$data['cname']]}</textarea>
+                                                            </div>
+                                                        </div>
+                                                    <php>}else if($data['type']==3){</php>
+                                                        <div class="form-group">
+                                                            <label class="col-sm-2 control-label">{$data['name']}</label>
+                                                            <div class="col-sm-10">
+                                                                <select class="form-control" disabled>
+                                                                	<option>{$info[$data['cname']]}</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    <php>}else if($data['type']==4){</php>
+                                                        <div class="form-group">
+                                                            <label class="col-sm-2 control-label">{$data['name']}</label>
+                                                            <div class="col-sm-10">
+                                                                <div class="radio myradio">
+                                                                    <label><input type="radio" checked> {$info[$data['cname']]}</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                        
+                                                    <php>}else if($data['type']==5){</php>
+                                                        <div class="form-group">
+                                                            <label for="{$data['cname']}" class="col-sm-2 control-label">{$data['name']}</label>
+                                                            <div class="col-sm-10">
+                                                                <div class="checkbox mycheckbox">
+                                                                {$info[$data['cname']]}&emsp;
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    <php>}else if($data['type']==6){</php>
+                                                        <div class="form-group">
+                                                            <label class="col-sm-2 control-label">{$data['name']}</label>
+                                                            <div class="col-sm-10  has-feedback">
+                                                                <input type="text" class="form-control" readonly value="{$info[$data['cname']]|date='Y-m-d',###}">
+                                                                <span class="glyphicon glyphicon-calendar form-control-feedback"></span>
+                                                            </div>
+                                                        </div>
+                                                    <php>}else if($data['type']==7){</php>
+                                                        <div class="form-group">
+                                                            <label for="{$data['cname']}" class="col-sm-2 control-label">{$data['name']}</label>
+                                                            <div class="col-sm-10">
+                                                                <a href="{$info[$data['cname']]}" target="_blank">点击查看</a>
+                                                            </div>
+                                                        </div>
+                                                    <php>}else if($data['type']==8){</php>
+                                                        <div class="form-group">
+                                                            <label for="{$data['cname']}" class="col-sm-2 control-label">{$data['name']}</label>
+                                                            <div class="col-sm-10" style="z-index:0;">
+                                                                {$info[$data['cname']]}
+                                                            </div>
+                                                        </div>
+                                                    <php>}</php>
+                                                    </volist>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </volist>
+                                    </div>
+                                </div>
+                                <ul class="pagination">{$page}</ul>
+								<div id="modal-table" class="modal fade" tabindex="-1">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-footer no-margin-top">
+												<button class="btn btn-sm btn-danger pull-left" data-dismiss="modal">
+													<i class="icon-remove"></i>
+													Close
+												</button>
+
+												<ul class="pagination pull-right no-margin">
+													<li class="prev disabled">
+														<a href="#">
+															<i class="icon-double-angle-left"></i>
+														</a>
+													</li>
+
+													<li class="active">
+														<a href="#">1</a>
+													</li>
+
+													<li>
+														<a href="#">2</a>
+													</li>
+
+													<li>
+														<a href="#">3</a>
+													</li>
+
+													<li class="next">
+														<a href="#">
+															<i class="icon-double-angle-right"></i>
+														</a>
+													</li>
+												</ul>
+											</div>
+										</div><!-- /.modal-content -->
+									</div><!-- /.modal-dialog -->
+								</div><!-- PAGE CONTENT ENDS -->
+							</div>
+						</div><!-- /.row -->
+					</div><!-- /.page-content -->
+				</div><!-- /.main-content -->
+				<div class="ace-settings-container" id="ace-settings-container">
+					<div class="btn btn-app btn-xs btn-warning ace-settings-btn" id="ace-settings-btn">
+						<i class="icon-cog bigger-150"></i>
+					</div>
+
+					<div class="ace-settings-box" id="ace-settings-box">
+						<div>
+							<div class="pull-left">
+								<select id="skin-colorpicker" class="hide">
+									<option data-skin="default" value="#438EB9">#438EB9</option>
+									<option data-skin="skin-1" value="#222A2D">#222A2D</option>
+									<option data-skin="skin-2" value="#C6487E">#C6487E</option>
+									<option data-skin="skin-3" value="#D0D0D0">#D0D0D0</option>
+								</select>
+							</div>
+							<span>&nbsp; 选择皮肤</span>
+						</div>
+					</div>
+				</div><!-- /#ace-settings-container -->
+			</div><!-- /.main-container-inner -->
+
+			<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+				<i class="icon-double-angle-up icon-only bigger-110"></i>
+			</a>
+		</div><!-- /.main-container -->
+
+		<!-- basic scripts -->
+
+		<!--[if !IE]> -->
+
+		<script src="{:SOURCE_PATH}assets/js/jquery-2.0.3.min.js"></script>
+
+		<!-- <![endif]-->
+
+		<!--[if IE]>
+<script src="{:SOURCE_PATH}assets/js/jquery-1.10.2.min.js"></script>
+<![endif]-->
+
+		<!--[if !IE]> -->
+
+		<script type="text/javascript">
+			window.jQuery || document.write("<script src='{:SOURCE_PATH}assets/js/jquery-2.0.3.min.js'>"+"<"+"script>");
+		</script>
+
+		<!-- <![endif]-->
+
+		<!--[if IE]>
+<script type="text/javascript">
+ window.jQuery || document.write("<script src='{:SOURCE_PATH}assets/js/jquery-1.10.2.min.js'>"+"<"+"script>");
+</script>
+<![endif]-->
+
+		<script type="text/javascript">
+			if("ontouchend" in document) document.write("<script src='{:SOURCE_PATH}assets/js/jquery.mobile.custom.min.js'>"+"<"+"script>");
+		</script>
+		<script src="{:SOURCE_PATH}assets/js/bootstrap.min.js"></script>
+		<script src="{:SOURCE_PATH}assets/js/typeahead-bs2.min.js"></script>
+
+		<!-- page specific plugin scripts -->
+
+		<!-- ace scripts -->
+
+		<script src="{:SOURCE_PATH}assets/js/ace-elements.min.js"></script>
+		<script src="{:SOURCE_PATH}assets/js/ace.min.js"></script>
+
+		<!-- inline scripts related to this page -->
+</body>
+</html>
+
