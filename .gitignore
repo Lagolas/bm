@@ -1,3 +1,7 @@
+# Windows:
+*.db
+*.ini
+
 nbproject
 Application/Runtime
 Application/Runtime/*
