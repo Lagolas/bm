@@ -1,0 +1,169 @@
+﻿<include file="header" />
+				<div class="main-content">
+					<div class="breadcrumbs" id="breadcrumbs">
+						<script type="text/javascript">
+							try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+						</script>
+
+						<ul class="breadcrumb">
+							<li>
+								<i class="icon-home home-icon"></i>
+								<a href="{:U('index')}">首页</a>
+							</li>
+                            <li>
+								<a href="#">管理员</a>
+							</li>
+							<li class="active">管理员列表</li>
+						</ul><!-- .breadcrumb -->
+					</div>
+
+					<div class="page-content">
+						<div class="row">
+                        	<div class="col-xs-12">
+								<div class="row">
+									<div class="col-xs-12">
+										<h3 class="header smaller lighter blue">管理员列表</h3>
+
+										<div class="table-responsive">
+											<table id="sample-table-1" class="table table-striped table-bordered table-hover">
+												<thead>
+													<tr>
+														<th>用户名</th>
+														<th>手机</th>
+														<th>开通时间</th>
+                                                        <th>到期时间</th>
+                                                        <th>会员状态</th>
+													</tr>
+												</thead>
+
+												<tbody>
+                                                <php>if($manager){</php>
+                                                <volist name='manager' id='data'>
+													<tr>
+														<td>{$data['name']}</td>
+                                                        <td>{$data['mobile']}</td>
+                                                        <td>{$data['ctime']|date="Y-m-d H:i:s",###}</td>
+                                                        <td><php>if($data['etime']>0){</php>{$data['etime']|date="Y-m-d",###}<php>}else{</php>无限期<php>}</php></td>
+                                                        <td><php>if($data['state']==1){</php>正常<php>}else{</php>禁止登陆<php>}</php></td>
+													</tr>
+												</volist>
+                                                <php>}else{</php>
+                                                <tr><td colspan="5">暂无记录</td></tr>
+                                                <php>}</php>	
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+
+								<div id="modal-table" class="modal fade" tabindex="-1">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-footer no-margin-top">
+												<button class="btn btn-sm btn-danger pull-left" data-dismiss="modal">
+													<i class="icon-remove"></i>
+													Close
+												</button>
+
+												<ul class="pagination pull-right no-margin">
+													<li class="prev disabled">
+														<a href="#">
+															<i class="icon-double-angle-left"></i>
+														</a>
+													</li>
+
+													<li class="active">
+														<a href="#">1</a>
+													</li>
+
+													<li>
+														<a href="#">2</a>
+													</li>
+
+													<li>
+														<a href="#">3</a>
+													</li>
+
+													<li class="next">
+														<a href="#">
+															<i class="icon-double-angle-right"></i>
+														</a>
+													</li>
+												</ul>
+											</div>
+										</div><!-- /.modal-content -->
+									</div><!-- /.modal-dialog -->
+								</div><!-- PAGE CONTENT ENDS -->
+							</div>
+						</div><!-- /.row -->
+					</div><!-- /.page-content -->
+				</div><!-- /.main-content -->
+				<div class="ace-settings-container" id="ace-settings-container">
+					<div class="btn btn-app btn-xs btn-warning ace-settings-btn" id="ace-settings-btn">
+						<i class="icon-cog bigger-150"></i>
+					</div>
+
+					<div class="ace-settings-box" id="ace-settings-box">
+						<div>
+							<div class="pull-left">
+								<select id="skin-colorpicker" class="hide">
+									<option data-skin="default" value="#438EB9">#438EB9</option>
+									<option data-skin="skin-1" value="#222A2D">#222A2D</option>
+									<option data-skin="skin-2" value="#C6487E">#C6487E</option>
+									<option data-skin="skin-3" value="#D0D0D0">#D0D0D0</option>
+								</select>
+							</div>
+							<span>&nbsp; 选择皮肤</span>
+						</div>
+					</div>
+				</div><!-- /#ace-settings-container -->
+			</div><!-- /.main-container-inner -->
+
+			<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+				<i class="icon-double-angle-up icon-only bigger-110"></i>
+			</a>
+		</div><!-- /.main-container -->
+
+		<!-- basic scripts -->
+
+		<!--[if !IE]> -->
+
+		<script src="{:SOURCE_PATH}assets/js/jquery-2.0.3.min.js"></script>
+
+		<!-- <![endif]-->
+
+		<!--[if IE]>
+<script src="{:SOURCE_PATH}assets/js/jquery-1.10.2.min.js"></script>
+<![endif]-->
+
+		<!--[if !IE]> -->
+
+		<script type="text/javascript">
+			window.jQuery || document.write("<script src='{:SOURCE_PATH}assets/js/jquery-2.0.3.min.js'>"+"<"+"script>");
+		</script>
+
+		<!-- <![endif]-->
+
+		<!--[if IE]>
+<script type="text/javascript">
+ window.jQuery || document.write("<script src='{:SOURCE_PATH}assets/js/jquery-1.10.2.min.js'>"+"<"+"script>");
+</script>
+<![endif]-->
+
+		<script type="text/javascript">
+			if("ontouchend" in document) document.write("<script src='{:SOURCE_PATH}assets/js/jquery.mobile.custom.min.js'>"+"<"+"script>");
+		</script>
+		<script src="{:SOURCE_PATH}assets/js/bootstrap.min.js"></script>
+		<script src="{:SOURCE_PATH}assets/js/typeahead-bs2.min.js"></script>
+
+		<!-- page specific plugin scripts -->
+
+		<!-- ace scripts -->
+
+		<script src="{:SOURCE_PATH}assets/js/ace-elements.min.js"></script>
+		<script src="{:SOURCE_PATH}assets/js/ace.min.js"></script>
+
+		<!-- inline scripts related to this page -->
+</body>
+</html>
+

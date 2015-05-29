@@ -57,4 +57,13 @@ function GetIP(){
         $ip = "unknown";
     }
     return($ip); 
-} 
+}
+
+function creatRandStr($length=6){
+    $str = "abcdefghijklmnopqrstuvwxyz0123456789";
+    $randstr = "";
+    for($i=0;$i<$length;$i++){
+        $randstr .= $str[rand(0,35)];
+    }
+    return $randstr;
+}

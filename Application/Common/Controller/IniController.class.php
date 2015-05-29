@@ -3,7 +3,7 @@ namespace Common\Controller;
 use Think\Controller;
 
 class IniController extends Controller {
-    private $cookie_arr;
+    protected $cookie_arr;
     
     public function __construct() {
         parent::__construct();

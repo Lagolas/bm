@@ -2,10 +2,16 @@
 namespace Admin\Controller;
 use Common\Controller\IniController;
 class IndexController extends IniController {
+    private $userinfo;
+    private $manager_info;
     public function __construct() {
         parent::__construct();
         $this->is_admin();
-        
+        $user['name'] = $this->cookie_arr['0'];
+        $user['id'] = $this->cookie_arr['2'];
+        $this->userinfo = M('member')->where($user)->find();
+        $manager_where['uid'] = $user['id'];
+        $this->manager_info = M('manager')->where($manager_where)->find();
     }
     public function index(){
         $this->display();
@@ -146,6 +152,7 @@ class IndexController extends IniController {
     **********************************************************/
     //模型列表
     public function model(){
+        $this->check_level_1();
         $list = M('model')->select();
         $this->assign('list',$list);
         $this->display();
@@ -153,11 +160,13 @@ class IndexController extends IniController {
     
     //创建模型
     public function creatmodel(){
+        $this->check_level_1();
         $this->display();
     }
     
     //模型创建执行逻辑
     public function docreatmodel(){
+        $this->check_level_1();
         if(!IS_POST) exit;
         if(!I('post.name') || !I('post.cname')) $this->error ('非法提交');
         $check['cname'] = I('post.cname');
@@ -180,6 +189,7 @@ class IndexController extends IniController {
 
     //修改模型
     public function editmodel(){
+        $this->check_level_1();
         if(!IS_GET) exit;
         $where['mid'] = I('get.mid','','intval');
         $result = M('model')->where($where)->find();
@@ -188,6 +198,7 @@ class IndexController extends IniController {
     }
     //模型修改保存逻辑
     public function updatemodel(){
+        $this->check_level_1();
         if(!IS_POST) exit;
         if(!I('post.name') || !I('post.cname') || !I('post.mid')) $this->error ('非法提交');
         if(I('post.cname')) unset ($_POST['cname']);
@@ -221,6 +232,7 @@ class IndexController extends IniController {
     
     //添加字段
     public function addfield(){
+        $this->check_level_1();
         if(!IS_POST) exit;
         if(!I('post.name') || !I('post.cname') || !I('post.type')) $this->error ("非法提交");
         $where['cname'] = I('post.cname');
@@ -276,6 +288,7 @@ class IndexController extends IniController {
 
     //删除模型
     public function delmodel(){
+        $this->check_level_1();
         if(!IS_GET) exit;
         $where['mid'] = I('get.mid','','intval');
         $tablename = M('model')->where($where)->getField('cname');
@@ -290,6 +303,7 @@ class IndexController extends IniController {
     }
     
     public function editfield(){
+        $this->check_level_1();
         $where['id'] = I('get.id','','intval');
         $field = M('fields')->where($where)->find();
         $this->assign('type',C('FIELD_TYPES'));
@@ -299,6 +313,7 @@ class IndexController extends IniController {
     }
     
     public function doeditfield(){
+        $this->check_level_1();
         if(!IS_POST) exit;
         $where['id'] = I('post.id','','intval');
         if(!I('post.name')) $this->error ('字段名称不能为空');
@@ -318,15 +333,47 @@ class IndexController extends IniController {
      * 
      *********************************************************************/
     public function manager(){
-        
+        $this->check_level_1();
+        $manager = M()->table(DB_PREFIX.'member m')->field("mn.*,m.*")->join(DB_PREFIX.'manager mn on m.id=mn.uid')->where('m.level=2')->select();
+        $this->assign('manager',$manager);
+        $this->display();
     }
     
     public function addmanager(){
-        
+        $this->check_level_1();
+        $password = creatRandStr(10);
+        $this->assign('password',$password);
+        $this->display();
     }
     
     public function goaddmanager(){
-        
+        $this->check_level_1();
+        if(!IS_POST) exit;
+        $where['name'] = I('post.name');
+        $used = M('member')->where($where)->find();
+        if($used) {$this->error ('用户名已存在');exit;}
+        if(!I('post.password')) {$this->error ('密码不能为空');exit;}
+        if(I('post.mobile') && !preg_match("/^(1)[0-9]{10}$/", I('post.mobile'))) $this->error ('手机号格式错误');
+        $member['name'] = I('post.name');
+        $member['salt'] = creatRandStr();
+        $member['password'] = MD5(I('post.password').'+'.$member['salt']);
+        $member['mobile'] = I('post.mobile')?I('post.mobile'):"";
+        $member['level'] = 2;
+        $member['ctime'] = NOW_TIME;
+        $db = M('member');
+        if($db->create($member)){
+            $uid = $db->add($member);
+            if($uid){
+                $manager['uid'] = $uid;
+                $manager['etime'] = I('post.etime')?  strtotime(I('post.etime')):"";
+                M('manager')->add($manager);
+                $this->success('创建成功');
+            }else{
+                $this->error('失败');
+            }
+        }else{
+            $this->error('创建数据失败，添加失败');
+        }
     }
     
     public function editmanager(){
@@ -398,6 +445,20 @@ class IndexController extends IniController {
             }
         }
     }
+    public function checkmanagername(){
+        if(IS_AJAX){
+            $where['name'] = I('post.name');
+            if(I('post.origid')){
+                $where[I('post.origid')] = array('NEQ',I('post.origidvalue','','intval'));
+            }
+            $used = M('member')->where($where)->find();
+            if($used){
+                $this->ajaxReturn(false);   
+            }else{
+                $this->ajaxReturn(true);
+            }
+        }
+    }
     /*********************************************************
      * 私有方法部分
      * 
@@ -435,5 +496,12 @@ class IndexController extends IniController {
         }else{
             return false;
         }
+    }
+    
+    private function check_level_1(){
+        if(intval($this->userinfo['level'])!==1) $this->error('权限不足，无权访问');
+    }
+    private function check_level_2(){
+        if(intval($this->userinfo['level'])!==2 && intval($this->userinfo['level'])!==1) $this->error('权限不足，无权访问');
     }
 }

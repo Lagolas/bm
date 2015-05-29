@@ -1,0 +1,229 @@
+<include file="header" />
+                		<!-- page specific plugin styles -->
+
+		<link rel="stylesheet" href="{:SOURCE_PATH}assets/css/jquery-ui-1.10.3.custom.min.css" />
+		<link rel="stylesheet" href="{:SOURCE_PATH}assets/css/chosen.css" />
+    	<link rel="stylesheet" href="{:PUBLIC_PATH}dt/css/bootstrap-datepicker3.standalone.min.css">
+
+				<div class="main-content">
+					<div class="breadcrumbs" id="breadcrumbs">
+						<script type="text/javascript">
+							try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+						</script>
+
+						<ul class="breadcrumb">
+							<li>
+								<i class="icon-home home-icon"></i>
+								<a href="{:U('index')}">首页</a>
+							</li>
+
+							<li>
+								<a href="#">管理员管理</a>
+							</li>
+							<li class="active">添加管理员</li>
+						</ul><!-- .breadcrumb -->
+					</div>
+
+					<div class="page-content">
+                    	<div class="page-header">
+							<h1>添加管理员</h1>
+						</div>
+						<div class="row">
+							<div class="col-xs-12">
+								<!-- PAGE CONTENT BEGINS -->
+                                <form class="form-horizontal" role="form" id="validation-form" action="{:U('index/goaddmanager')}" method="post">
+                                	<div class="form-group">
+										<label class="col-sm-2 control-label no-padding-right" for="name"> 用户名* </label>
+
+										<div class="col-sm-9">
+											<input type="text" id="name" name="name" placeholder="用户名" class="col-xs-10 col-sm-5 limited" maxlength="25" />
+										</div>
+									</div>
+
+									<div class="space-4"></div>
+                                    <div class="form-group">
+										<label class="col-sm-2 control-label no-padding-right" for="password"> 密码* </label>
+
+										<div class="col-sm-9">
+											<input type="text" id="password" name="password" value="{$password}" placeholder="设置密码" class="col-xs-12" />
+										</div>
+									</div>
+                                    
+									<div class="space-4"></div>
+                                    <div class="form-group">
+										<label class="col-sm-2 control-label no-padding-right" for="mobile"> 手机号 </label>
+
+										<div class="col-sm-9">
+											<input type="text" id="mobile" name="mobile" placeholder="用户手机号" class="col-xs-12" />
+										</div>
+									</div>
+
+									<div class="space-4"></div>
+                                    <div class="form-group">
+										<label class="col-sm-2 control-label no-padding-right" for="model"> 到期时间 </label>
+
+                                        <div class="col-sm-9">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <i class="icon-calendar bigger-110"></i>
+                                                </span>
+                                                <input class="form-control" type="text" placeholder="为空则不限时" name="etime" id="etime">
+                                            </div>
+                                        </div>
+									</div>
+
+									<div class="space-4"></div>
+                                    <div class="clearfix form-actions">
+                                    <div class="col-md-offset-3 col-md-9">
+                                        <button class="btn btn-info" id="submit" type="submit">
+                                            <i class="icon-ok bigger-110"></i>
+                                            立即提交
+                                        </button>
+
+                                        &nbsp; &nbsp; &nbsp;
+                                        <button class="btn" type="reset">
+                                            <i class="icon-undo bigger-110"></i>
+                                            重置
+                                        </button>
+                                    </div>
+                                </div>
+                                </form>
+								<!-- PAGE CONTENT ENDS -->
+							</div><!-- /.col -->
+						</div><!-- /.row -->
+					</div><!-- /.page-content -->
+				</div><!-- /.main-content -->
+
+				<div class="ace-settings-container" id="ace-settings-container">
+					<div class="btn btn-app btn-xs btn-warning ace-settings-btn" id="ace-settings-btn">
+						<i class="icon-cog bigger-150"></i>
+					</div>
+
+					<div class="ace-settings-box" id="ace-settings-box">
+						<div>
+							<div class="pull-left">
+								<select id="skin-colorpicker" class="hide">
+									<option data-skin="default" value="#438EB9">#438EB9</option>
+									<option data-skin="skin-1" value="#222A2D">#222A2D</option>
+									<option data-skin="skin-2" value="#C6487E">#C6487E</option>
+									<option data-skin="skin-3" value="#D0D0D0">#D0D0D0</option>
+								</select>
+							</div>
+							<span>&nbsp; 选择皮肤</span>
+						</div>
+					</div>
+				</div><!-- /#ace-settings-container -->
+			</div><!-- /.main-container-inner -->
+
+			<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+				<i class="icon-double-angle-up icon-only bigger-110"></i>
+			</a>
+		</div><!-- /.main-container -->
+
+		<!-- basic scripts -->
+
+		<!--[if !IE]> -->
+
+		<script src="{:SOURCE_PATH}assets/js/jquery-2.0.3.min.js"></script>
+
+		<!-- <![endif]-->
+
+		<!--[if IE]>
+<script src="{:SOURCE_PATH}assets/js/jquery-1.10.2.min.js"></script>
+<![endif]-->
+
+		<!--[if !IE]> -->
+
+		<script type="text/javascript">
+			window.jQuery || document.write("<script src='{:SOURCE_PATH}assets/js/jquery-2.0.3.min.js'>"+"<"+"/script>");
+		</script>
+
+		<!-- <![endif]-->
+
+		<!--[if IE]>
+<script type="text/javascript">
+ window.jQuery || document.write("<script src='{:SOURCE_PATH}assets/js/jquery-1.10.2.min.js'>"+"<"+"/script>");
+</script>
+<![endif]-->
+
+		<script type="text/javascript">
+			if("ontouchend" in document) document.write("<script src='{:SOURCE_PATH}assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
+		</script>
+		<script src="{:SOURCE_PATH}assets/js/bootstrap.min.js"></script>
+		<script src="{:SOURCE_PATH}assets/js/typeahead-bs2.min.js"></script>
+
+		<!-- page specific plugin scripts -->
+        <!--[if lte IE 8]>
+		  <script src="assets/js/excanvas.min.js"></script>
+		<![endif]-->
+        <script src="{:SOURCE_PATH}assets/js/jquery-ui-1.10.3.custom.min.js"></script>
+		<script src="{:SOURCE_PATH}assets/js/jquery.ui.touch-punch.min.js"></script>
+		<script src="{:SOURCE_PATH}assets/js/jquery.validate.min.js"></script>
+		<script src="{:SOURCE_PATH}assets/js/jquery.inputlimiter.1.3.1.min.js"></script>
+		<script src="{:PUBLIC_PATH}dt/js/bootstrap-datepicker.min.js"></script>
+		<!-- ace scripts -->
+
+		<script src="{:SOURCE_PATH}assets/js/ace-elements.min.js"></script>
+		<script src="{:SOURCE_PATH}assets/js/ace.min.js"></script>
+        
+        <script type="text/javascript">
+			jQuery(function($) {
+				$('textarea.limited,input.limited').inputlimiter({
+					remText: '还可以输入%n 个字符',
+					limitText: '最多允许: %n个字符.'
+				});
+				$("#etime").datepicker({autoclose:true});
+				
+				$('#validation-form').validate({
+					errorElement: 'div',
+					errorClass: 'help-block',
+					focusInvalid: false,
+					rules: {
+						name:{
+							required: true,
+							remote:{
+								 type:"POST",
+								 url:"{:U('index/checkmanagername')}",
+								 data:{cname:function(){return $("#name").val();}}
+							}
+						},
+						password:{required: true},
+					},
+			
+					messages: {
+						name:{
+							required:"*用户名不能为空！",
+							remote:"用户名已被使用，请换一个"
+						},
+						password: "*密码不能为空！",
+					},
+			
+					invalidHandler: function (event, validator) { //display error alert on form submit   
+						$('.alert-danger', $('.login-form')).show();
+					},
+			
+					highlight: function (e) {
+						$(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+					},
+			
+					success: function (e) {
+						$(e).closest('.form-group').removeClass('has-error').addClass('has-info');
+						$(e).remove();
+					},
+			
+					errorPlacement: function (error, element) {
+						if(element.is('.select2')) {
+							error.insertAfter(element);
+						}else error.insertAfter(element);
+					},
+			
+					submitHandler: function (form) {
+						form.submit();
+					}
+				});
+			
+			});
+		</script>
+		<!-- inline scripts related to this page -->
+</body>
+</html>
