@@ -164,6 +164,31 @@
 								</li>
 							</ul>
 						</li>
+                        
+                        <li class="<?php if(in_array(ACTION_NAME,array('manager','addmanager','editmanager'))){ ?>active open<?php } ?>">
+							<a href="#" class="dropdown-toggle">
+								<i class="icon-legal"></i>
+								<span class="menu-text"> 管理员 </span>
+
+								<b class="arrow icon-angle-down"></b>
+							</a>
+
+							<ul class="submenu">
+								<li class="<?php if(in_array(ACTION_NAME,array('manager'))){ ?>active<?php } ?>">
+									<a href="<?php echo U('index/manager');?>">
+										<i class="icon-double-angle-right"></i>
+										管理员列表
+									</a>
+								</li>
+
+								<li class="<?php if(in_array(ACTION_NAME,array('addmanager','editmanager'))){ ?>active<?php } ?>">
+									<a href="<?php echo U('index/addmanager');?>">
+										<i class="icon-double-angle-right"></i>
+										添加管理员
+									</a>
+								</li>
+							</ul>
+						</li>
 						
 					</ul><!-- /.nav-list -->
 
