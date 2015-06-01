@@ -23,8 +23,16 @@ class IndexController extends IniController {
     * 
     *********************************************************************/
     public function project(){
+        if($this->userinfo['level']==2){
+            $where['uid'] = $this->userinfo['id'];
+        }else if($this->userinfo['level']==1){
+            $where="";
+        }else{
+            exit;
+        }
         $list = M()->table(DB_PREFIX.'project p')->field("p.id,p.title,p.stime,p.etime,p.ctime,p.records,m.name")
                 ->join(DB_PREFIX.'model m on p.model=m.mid')
+                ->where($where)
                 ->select();
         $this->assign('list',$list);
         $this->display();
@@ -66,6 +74,7 @@ class IndexController extends IniController {
                 $this->error($info['info']);
             }
         }
+        $data['uid'] = $this->userinfo['id'];
         if(M('project')->add($data)){
             $this->success('添加成功');
         }else{
@@ -75,6 +84,12 @@ class IndexController extends IniController {
     
     public function delpro(){
         if(!IS_GET) exit;
+        if($this->userinfo['level']==2){
+            $where['uid'] = $this->userinfo['id'];
+        }else if($this->userinfo['level']==1){
+        }else{
+            exit;
+        }
         $where['id'] = I('get.id','','intval');
         if(M('project')->where($where)->delete()){
             $this->success('删除成功');
@@ -84,8 +99,15 @@ class IndexController extends IniController {
     }
     
     public function editpro(){
+        if($this->userinfo['level']==2){
+            $where['uid'] = $this->userinfo['id'];
+        }else if($this->userinfo['level']==1){
+        }else{
+            exit;
+        }
         $where['id'] = I('get.id','','intval');
         $project = M('project')->where($where)->find();
+        if(!$project){$this->error('非法请求');exit;}
         $model = M('model')->where('mid='.$project['model'])->getField('name');
         $this->assign('model',$model);
         $this->assign('pro',$project);
@@ -94,6 +116,14 @@ class IndexController extends IniController {
     
     public function doeditpro(){
         if(!IS_POST) exit;
+        if($this->userinfo['level']==2){
+            $where['uid'] = $this->userinfo['id'];
+            $uid = M('project')->where('id='.I('post.id','','intval'))->getField('uid');
+            if($this->userinfo['id']!=$uid){$this->error('非法请求');exit;}
+        }else if($this->userinfo['level']==1){
+        }else{
+            exit;
+        }
         $where['id'] = I('post.id','','intval');
         if(I('post.cname') || I('post.model')) $this->error ('含非法参数');
         if(!I('post.title')) $this->error ('项目名称不能为空');
@@ -124,18 +154,26 @@ class IndexController extends IniController {
     }
     
     public function bmlist(){
+        if($this->userinfo['level']==2){
+            $proid['uid'] = $this->userinfo['id'];
+        }else if($this->userinfo['level']==1){
+        }else{
+            exit;
+        }
         $id = I('get.id','','intval');
         $proid['id'] = $id;
         $pro = M('project')->where($proid)->find();
+        if(!$pro){$this->error('非法请求');exit;}
         $where['mid'] = $pro['model'];
         $where['state'] = 1;
         $fields = M('fields')->where($where)->order('listorder DESC,id ASC')->select();
         $mid['mid'] = $where['mid'];
         $cname = M('model')->where($mid)->getField('cname');
+        if(!$cname) {$this->error('非法请求');exit;}
         $w_pid['proid'] = $id;
         $db = M($cname);
         $count = $db->where($w_pid)->count();
-        $Page       = new \Think\Page($count,18);
+        $Page       = new \Think\Page($count,12);
         $infolist = M($cname)->where($w_pid)->limit($Page->firstRow.','.$Page->listRows)->select();
         //dump($result);exit;
         $this->assign('infolist',$infolist);
