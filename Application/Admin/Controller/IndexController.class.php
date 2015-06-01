@@ -190,7 +190,7 @@ class IndexController extends IniController {
     **********************************************************/
     //模型列表
     public function model(){
-        $this->check_level_1();
+        //$this->check_level_1();
         $list = M('model')->select();
         $this->assign('list',$list);
         $this->display();
