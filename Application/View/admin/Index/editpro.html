@@ -72,7 +72,7 @@
                                                 <span class="input-group-addon">
                                                     <i class="icon-calendar bigger-110"></i>
                                                 </span>
-                                                <input class="form-control" type="text" value="{$pro['stime']|date="m/d/Y",###} - {$pro['etime']|date="m/d/Y",###}" name="setime" id="setime">
+                                                <input class="form-control" type="text" value="<php>if($pro['stime']){</php>{$pro['stime']|date="m/d/Y",###} - {$pro['etime']|date="m/d/Y",###}<php>}</php>" name="setime" id="setime">
                                             </div>
 										</div>
 									</div>
