@@ -33,6 +33,7 @@
 														<th>开通时间</th>
                                                         <th>到期时间</th>
                                                         <th>会员状态</th>
+                                                        <th>操作</th>
 													</tr>
 												</thead>
 
@@ -45,6 +46,7 @@
                                                         <td>{$data['ctime']|date="Y-m-d H:i:s",###}</td>
                                                         <td><php>if($data['etime']>0){</php>{$data['etime']|date="Y-m-d",###}<php>}else{</php>无限期<php>}</php></td>
                                                         <td><php>if($data['state']==1){</php>正常<php>}else{</php>禁止登陆<php>}</php></td>
+                                                        <td class="action-buttons"><a class="green" title="修改" href="{:U('index/editmanager',array('id'=>$data['id']))}"><i class="icon-pencil bigger-130"></i></a></td>
 													</tr>
 												</volist>
                                                 <php>}else{</php>
