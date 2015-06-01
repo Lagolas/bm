@@ -47,7 +47,7 @@
                                                 <volist name='list' id='data'>
 													<tr>
 														<td class="center">{$data['id']}</td>
-														<td><a href="#">{:cut_str($data['title'],20)}</a></td>
+														<td>{:cut_str($data['title'],20)}</td>
 														<td>{$data['name']}</td>
 														<td><php>if($data['stime']){</php>{$data['stime']|date="Y.m.d",###}<php>}else{</php>不限时<php>}</php></td>
 														<td><php>if($data['etime']){</php>{$data['etime']|date="Y.m.d",###}<php>}else{</php>不限时<php>}</php></td>
